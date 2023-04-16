@@ -181,7 +181,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        //agregamos Spatie para permisos
+        //agregamos Spatie para permisos de roles
         Spatie\Permission\PermissionServiceProvider::class,
 
         /*

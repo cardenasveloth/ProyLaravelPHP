@@ -13,6 +13,16 @@ use App\Http\Requests\StoreCategory;
 
 class PostController extends Controller
 {
+    function __Construct()
+    {
+        $this->middleware('permission:ver-Post|crear-Post|editar-Post|borrar-Post',['only'=>['index']]);
+        $this->middleware('permission:crear-Post',['only'=>['create','store']]);
+        $this->middleware('permission:editar-Post',['only'=>['edit','update']]);
+        $this->middleware('permission:borrar-Post',['only'=>['destroy']]);
+
+
+
+    }
     /**
      * Display a listing of the resource.
      */

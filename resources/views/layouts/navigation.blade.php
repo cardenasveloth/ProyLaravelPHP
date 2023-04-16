@@ -9,11 +9,38 @@
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
                 </div>
-
+                
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="url('dashboard/post')" :active="request()->routeIs('post')">
+                        {{ __('Post') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="url('dashboard/category')" :active="request()->routeIs('category')">
+                        {{ __('Categoria') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    @can('ver-rol, crear-rol,  editar-rol. borrar-rol')
+                    <x-nav-link :href="url('roles')" :active="request()->routeIs('roles')">
+                        {{ __('Roles') }}   
+                    @endcan
+                    
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    @can('ver-usuario, crear-usuario, editar-usuario, borrar-usuario')                    
+                        <x-nav-link :href="url('usuarios')" :active="request()->routeIs('usuarios')">
+                            {{ __('Usuarios') }}
+                    @endcan
+
+                
                     </x-nav-link>
                 </div>
             </div>

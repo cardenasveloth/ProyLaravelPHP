@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\CategorytController;
 use App\Http\Controllers\RolController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\CategorytController;
+
 
 
 /*
@@ -41,3 +43,4 @@ require __DIR__.'/auth.php';
 Route::resource('dashboard/category', CategorytController::class);
 Route::resource('dashboard/post', PostController::class);
 Route::resource('roles', RolController::class);
+Route::resource('usuarios', UsuarioController::class);
