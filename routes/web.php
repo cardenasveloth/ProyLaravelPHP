@@ -1,11 +1,14 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\CategorytController;
+
 
 
 
@@ -44,3 +47,4 @@ Route::resource('dashboard/category', CategorytController::class);
 Route::resource('dashboard/post', PostController::class);
 Route::resource('roles', RolController::class);
 Route::resource('usuarios', UsuarioController::class);
+Route::resource('dashboard/reply', ReplyController::class);

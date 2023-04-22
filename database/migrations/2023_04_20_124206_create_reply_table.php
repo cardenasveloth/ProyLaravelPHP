@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('reply', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100)->nullable()->default('text');
-            $table->text('description')->nullable();
-            $table->biginteger('Autor_id')->unsigned()->nullable(); /* column:integer foranea de tabla users*/ 
+            $table->biginteger('post_id')->unsigned()->nullable(); /* column:integer foranea de tabla categories*/
+            $table->text('description')->nullable();/* column:text para texarea */ 
             $table->timestamps();
             //Agragando claves foranea
-            $table->foreign('Autor_id')->references('id')->on('users');
+            $table->foreign('post_id')->references('id')->on('posts');
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('reply');
     }
 };

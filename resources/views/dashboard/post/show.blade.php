@@ -1,33 +1,55 @@
-@extends('dashboard.master')
-@section('contenido')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Replicas') }}
+        </h2>
+    </x-slot>
 
-@include('dashboard.partials.validation-error')
-{{-- @include('dashboard.partials.session-status') --}}
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                   
+                    <main>
+                        <div class="container py-4">
+                            <h1> Replicas a los Posts</h1>                            
+                            <h2> Post:  {{ $post->name }}</h2>
+                            <table class="table">
+                                <thead>
+                                    <tr>                                        
+                                        <td>
+                                        <h3> Fecha</h3>
+                                        </td>
+                                        <td>
+                                        <h3>Comentario</h3>
+                                        </td>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        @foreach($replys as $reply)
 
-<form action="{{ route('post.store') }}" method="post">
-    @csrf
-<div class="form-group">
-    <label for="name">Nombre</label>
-    <input readonly class="form-control" type="text" name="name" id="name" value="{{ $post->name }}">
-</div>
- 
-<div class="form-group">
-    <label for="description">Descripción</label>
-    <input readonly class="form-control" type="text" name="description" id="description" value="{{ $post->description }}">
-</div>
-
-<div class="form-group">
-    <label for="content">Contenido</label>
-    <textarea readonly class="form-control"  id="content" name="content" rows="3"> {{ $post->content }}</textarea>
-</div>
-
-<div class="row center">
-    {{-- Las columnas en bootstrap tienen un ancho de 12
-        añadir 2 input en una fila: 12/cantidadInput --}}
-    <div class="col s6">
-        
-        <a href="{{ url('dashboard/post') }}" class="btn btn-secondary bt-sm">Volver</a>
+                                        <td>
+                                            {{ $reply->created_at }}
+                                        </td>
+                                        
+                                        <td>{{ $reply->description}}</td>
+                                    </tr>
+                                    @endforeach 
+                                </tbody>
+                            </table> 
+                            
+                            <div class="col s6">                                
+                                <a href="{{ url('dashboard/post') }}" class="btn btn-secondary bt-sm">Cancelar</a>
+                            </div>
+                
+                        
+                        </div>  
+                  
+                    </main>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-</form>  
-@endsection
+</x-app-layout>

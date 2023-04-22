@@ -11,30 +11,27 @@
                 <div class="p-6 text-gray-900">
                     @include('dashboard.partials.validation-error')
                     @include('dashboard.partials.session-status')
-
-                    <form action="{{ route("category.store") }}" method="POST">
-                    
-                        @csrf
-                        {{-- form:post --}}
+                    <form action="{{ route('reply.update',$reply->id)  }}" method="post">
+                        @method('PUT')
+                        @csrf                       
                         {{-- Col 1 --}}
-                        <div class="row">
-                            {{-- .row para crear una fila --}}
-                            <div class="form-group">
-                                <label for="name">Nombre</label><input class="form-control" type="text" name="name" id="name">
-                            </div>
-                        </div>
-
-                        {{-- Col 2 --}}
+                        <div class="row form-group">
+                            <label for="post_id">Post</label>
+                            <select  name="post" id="post">
+                                <option value="">Seleccione un Post</option>
+                                @foreach ( $post as $post )
+                                <option value="{{ $post->id }}" @if($post->id==$reply->post_id) {{'selected'}} @endif>{{ $post->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>                      
+                        
+                        
                         
                         <div class="row form-group">
                             <label for="description">Descripción</label>
-                            <textarea class="form-control" name="description" id="description" rows="10"></textarea>
+                            <textarea class="form-control" name="description" id="description" rows="10">{{ $reply->description }}</textarea>
                         </div>
-                        <div class="row form-group">
-                                                
-                            <input  type="hidden" name="autor" id="autor" value="{{ $usuario}}">
                         
-                        </div>
 
                         {{-- Col 3 --}}
                         <div class="row center">
@@ -42,7 +39,7 @@
                                 añadir 2 input en una fila: 12/cantidadInput --}}
                             <div class="col s6">
                                 <button class="btn btn-success btn-sm" type="submit">Publicar</button>
-                                <a href="{{ url('dashboard/category') }}" class="btn btn-secondary bt-sm">Cancelar</a>
+                                <a href="{{ url('dashboard/reply') }}" class="btn btn-secondary bt-sm">Cancelar</a>
                             </div>
                         </div>
                     </form>
@@ -51,6 +48,3 @@
         </div>
     </div>
 </x-app-layout>
-
-
-

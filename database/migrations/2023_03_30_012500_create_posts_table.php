@@ -15,11 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100)->nullable()->default('text'); /* column:string */
             $table->biginteger('category_id')->unsigned()->nullable(); /* column:integer foranea de tabla categories*/ 
+            $table->biginteger('Autor_id')->unsigned()->nullable(); /* column:integer foranea de tabla users*/ 
             $table->text('description')->nullable();/* column:text para texarea */ 
             $table->enum('state', ['post', 'no_post'])->default('no_post');/* opciones select */
             $table->timestamps();
-            //Agragando clave foranea
+            //Agragando claves foranea
             $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('Autor_id')->references('id')->on('users');
+
         });
     }
 

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreCategory;
+use Illuminate\Support\Facades\Auth;
+
 
 
 class CategorytController extends Controller
@@ -35,7 +38,8 @@ class CategorytController extends Controller
      */
     public function create()
     {
-        return view('dashboard.category.create');
+        $usuario = auth()->id();
+        return view('dashboard.category.create', ['usuario'=>$usuario]);
     }
 
     /**
@@ -51,6 +55,7 @@ class CategorytController extends Controller
         $category= new Category();
         $category->name=$request->input('name');
         $category->description=$request->input('description');
+        $category->Autor_id=$request->input('autor');
         $category->save();
         return back()->with('status','Categoria creada con exito');
     }
@@ -97,7 +102,11 @@ class CategorytController extends Controller
     public function destroy($id)
     {
         $category=Category::find($id);
+        if($category->Autor_id == Auth::id()) {
         $category->delete();
         return back()->with('status', "Categoria eliminada exitosamente");
+        } else {
+            return redirect()->back()->with('status', 'No tienes permiso para eliminar esta categoría.');
+        }
     }
 }

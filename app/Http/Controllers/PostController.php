@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Post;
+use App\Models\User;
+use App\Models\Reply;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePost;
 use App\Http\Requests\StoreCategory;
+use Illuminate\Support\Facades\Auth;
+
+
+
 
 
 
@@ -40,8 +46,11 @@ class PostController extends Controller
      */
     public function create()
     {
+        
         $category=Category::all();
-        return view('dashboard.post.create',['category'=>$category]);
+        $usuario = auth()->id();
+        
+        return view('dashboard.post.create',['category'=>$category, 'usuario'=>$usuario]);
     }
 
     public function store(StorePost $request)
@@ -54,6 +63,7 @@ class PostController extends Controller
         $post->name=$request->input('name');
         $post->category_id=$request->input('category');
         $post->description=$request->input('description');
+        $post->Autor_id=$request->input('autor');
         $post->save();
             return back()->with('status','Publicación creada con exito');
     }
@@ -66,9 +76,16 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        return view('dashboard.post.show',['post'=>$post]);
+       
+
+        $post = Post::find($id);
+        
+       $replys = $post->reply;       
+       
+        
+       return view('dashboard.post.show', compact('post', 'replys'));
     }
 
     /**
@@ -85,6 +102,8 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
+
         $request->validate([
             'name'=>'required|min:3|max:100',
             'description'=>'required|min:2|'
@@ -104,8 +123,13 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post=Post::find($id);
-        $post->delete();
-        return back()->with('status', "Post eliminado exitosamente");
+        if ($post->Autor_id == Auth::id()) {
+            // Eliminar el post
+            $post->delete();
+            return redirect()->back()->with('status', 'El post se ha eliminado correctamente.');
+        } else {
+            return redirect()->back()->with('status', 'No tienes permiso para eliminar este post.');
+        }
     }
 
 }

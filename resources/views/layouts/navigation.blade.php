@@ -27,6 +27,11 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="url('dashboard/reply')" :active="request()->routeIs('reply')">
+                        {{ __('Replicas') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     @can('ver-rol, crear-rol,  editar-rol. borrar-rol')
                     <x-nav-link :href="url('roles')" :active="request()->routeIs('roles')">
                         {{ __('Roles') }}   
@@ -98,9 +103,9 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
         </div>
-
+       
         <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
+        <div class="pt-4 pb-1 border-t border-gray-200">            
             <div class="px-4">
                 <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
